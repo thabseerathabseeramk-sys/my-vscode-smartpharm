@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pharmacy Website</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <div class="top-left">
+        <!-- Logo only on the far left -->
+        <img src="images/logo.png" alt="Smart Pharmacy logo" class="logo" width="150" height="70" loading="lazy">
+      </div>
+
+      <div class="top-right">
+        <!-- Delivery/address moved to the right next to icons -->
+        <div class="delivery">
+          <span class="loc-icon" aria-hidden="true">
+            <!-- location pin SVG -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" fill="#056c64"/>
+            </svg>
+          </span>
+      <div class="delivery-info">
+        <p data-i18n="delivery_label"><strong>Delivery Address</strong></p>
+            <!-- Use an input with datalist so user can type a custom address or pick a suggestion -->
+        <input id="address-input" list="address-list" data-next="#features" placeholder="Type or choose address" data-i18n-placeholder="search_address">
+            <datalist id="address-list">
+              <option value="Home - 123 Main St"></option>
+              <option value="Work - 456 Office Ave"></option>
+              <option value="Other - Enter Later"></option>
+            </datalist>
+          </div>
+        </div>
+
+        <div class="icons">
+          <button id="login-btn" class="login-btn" aria-label="Open account">
+            <span class="login-icon" aria-hidden="true">
+              <!-- user SVG -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5z" fill="#0d534f"/>
+                <path d="M2 22c0-4.418 3.582-8 8-8h4c4.418 0 8 3.582 8 8v0H2z" fill="#056c64"/>
+              </svg>
+            </span>
+            <span class="login-text" data-i18n="login">Login</span>
+          </button>
+          <button id="cart-btn" data-i18n="cart">Cart</button>
+          <!-- Language selector -->
+          <label for="lang-select" class="visually-hidden">Language</label>
+          <select id="lang-select" aria-label="Select language">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="kn">ಕನ್ನಡ</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <nav class="navbar">
+      <ul>
+        <li><a href="#" data-i18n="nav_buy">Buy Medicines</a></li>
+        <li><a href="#" data-i18n="nav_doctors">Find Doctors</a></li>
+        <li><a href="#" data-i18n="nav_lab">Lab Tests</a></li>
+        <li><a href="#" data-i18n="nav_circle">Circle Membership</a></li>
+        <li><a href="#" data-i18n="nav_records">Health Records</a></li>
+        <li><a href="#" data-i18n="nav_credit">Credit Card</a></li>
+        <li><a href="#" data-i18n="nav_insurance">Buy Insurance</a></li>
+      </ul>
+    </nav>
+    <nav class="sub-nav">
+      <ul>
+        <li><a href="subpages/apollo-products.html" data-i18n="sub_products">Products</a></li>
+        <li><a href="subpages/baby-care.html" data-i18n="sub_baby">Baby Care</a></li>
+        <li><a href="subpages/nutritional-drinks.html" data-i18n="sub_nutrition">Nutritional Drinks & Supplements</a></li>
+        <li><a href="subpages/women-care.html" data-i18n="sub_women">Women Care</a></li>
+        <li><a href="subpages/personal-care.html" data-i18n="sub_personal">Personal Care</a></li>
+        <li><a href="subpages/ayurveda.html" data-i18n="sub_ayurveda">Ayurveda</a></li>
+        <li><a href="subpages/health-devices.html" data-i18n="sub_devices">Health Devices</a></li>
+        <li><a href="subpages/home-essentials.html" data-i18n="sub_home">Home Essentials</a></li>
+        <li><a href="subpages/health-condition.html" data-i18n="sub_conditions">Health Condition</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Login modal (hidden by default) -->
+  <div id="login-modal" class="modal" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="login-title">
+      <button class="modal-close" id="modal-close" aria-label="Close login">×</button>
+  <!-- Larger logo inside modal for a stylish sign-in experience -->
+  <img src="images/logo.png" alt="Smart Pharmacy" class="modal-logo">
+  <h3 id="login-title">Sign in</h3>
+      <form id="login-form">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required placeholder="you@example.com">
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required placeholder="Enter password">
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Sign in</button>
+          <button type="button" id="modal-cancel">Cancel</button>
+        </div>
+      </form>
+      <p class="login-hint">Demo credentials: <strong>user@example.com</strong> / <strong>password123</strong></p>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1 data-i18n="hero_title">Buy Medicines and Essentials</h1>
+      <div class="search-bar">
+        <input id="main-search" type="text" placeholder="Search Medicines" data-i18n-placeholder="search_placeholder">
+        <button id="search-btn" data-i18n="search">Search</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature-card">
+      <h3>Pharmacy Near Me</h3>
+      <p>Find Store</p>
+    </div>
+    <div class="feature-card">
+      <h3>Get 20% off on Medicines</h3>
+      <p>Upload Now</p>
+    </div>
+    <div class="feature-card">
+      <h3>Doctor Appointment</h3>
+      <p>Book Now</p>
+    </div>
+    <div class="feature-card">
+      <h3>Health Insurance</h3>
+      <p>Explore Plans</p>
+    </div>
+    <div class="feature-card">
+      <h3>Lab Tests</h3>
+      <p>At Home</p>
+    </div>
+  </section>
+
+  <section class="conditions">
+    <h2 data-i18n="cond_heading">Browse by Health Conditions</h2>
+    <div class="condition-grid">
+      <div class="condition">
+        <img src="images/diabetes.png" alt="Diabetes Care">
+        <p data-i18n="cond_diabetes">Diabetes Care</p>
+      </div>
+      <div class="condition">
+        <img src="images/cardiac.png" alt="Cardiac Care">
+        <p data-i18n="cond_cardiac">Cardiac Care</p>
+      </div>
+      <div class="condition">
+        <img src="images/stomach.png" alt="Stomach Care">
+        <p data-i18n="cond_stomach">Stomach Care</p>
+      </div>
+      <div class="condition">
+        <img src="images/pain.png" alt="Pain Relief">
+        <p data-i18n="cond_pain">Pain Relief</p>
+      </div>
+      <div class="condition">
+        <img src="images/liver.png" alt="Liver Care">
+        <p data-i18n="cond_liver">Liver Care</p>
+      </div>
+    </div>
+  </section>
+
+ 
+  
+
+  <!-- Add this new block BELOW the existing grid -->
+  <div class="condition-grid">
+    <div class="condition">
+      <img src="images/oral.png" alt="Oral Care">
+      <p data-i18n="cond_oral">Oral Care</p>
+    </div>
+    <div class="condition">
+      <img src="images/respiratory.png" alt="Respiratory">
+      <p data-i18n="cond_respiratory">Respiratory</p>
+    </div>
+    <div class="condition">
+      <img src="images/sexual.png" alt="Sexual Health">
+      <p data-i18n="cond_sexual">Sexual Health</p>
+    </div>
+    <div class="condition">
+      <img src="images/elderly.png" alt="Elderly Care">
+      <p data-i18n="cond_elderly">Elderly Care</p>
+    </div>
+    <div class="condition">
+      <img src="images/cold.png" alt="Cold & Immunity">
+      <p data-i18n="cond_cold">Cold & Immunity</p>
+    </div>
+  </div>
+</section>
+
+  <footer>
+    <p data-i18n="footer">© 2025 Smart Pharmacy | All Rights Reserved</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
